@@ -1,0 +1,28 @@
+{
+  "name": "llm-log-tracker",
+  "version": "1.0.0",
+  "description": "<div style=\"text-align: center;\">     <img src=\"images/u4557718682_a_minimalist_logo_design_with_the_text_What_did_you_3cc510df-359b-409c-a383-84c449b97eb8.png\" alt=\"What did you\" width=\"600\"> </div>",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "diff": "^7.0.0",
+    "fs-extra": "^11.2.0",
+    "jsdiff": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/diff": "^6.0.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.10.2",
+    "eslint": "^9.17.0",
+    "typescript": "^5.7.2"
+  }
+}
