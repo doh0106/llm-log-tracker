@@ -32,13 +32,23 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs-extra"));
 const path = __importStar(require("path"));
 const stateManager_1 = require("./modules/state/stateManager");
 const diffCalculator_1 = require("./modules/diff/diffCalculator");
-const logFolder = path.join(__dirname, '../.logTracker');
-const projectPath = path.join(__dirname, '../');
+// import {LLM} from '.modules/llm/llmInterface';
+const openaiAdapter_1 = require("./modules/llm/openaiAdapter");
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config(); // .env 파일 로드
+const apiKey = process.env.OPENAI_API_KEY || '';
+// 프로젝트 루트를 기준으로 경로 설정
+const llm = new openaiAdapter_1.OpenAIAdapter(apiKey);
+const logFolder = path.join(process.cwd(), '.LogTracker');
+const projectPath = process.cwd(); // 프로젝트 루트를 기준으로 설정
 // 대상 폴더와 확장자 설정
 const targetFolders = [
     {
@@ -46,25 +56,24 @@ const targetFolders = [
         includeExtensions: ['.py', '.txt', '.ipynb'], // 포함할 확장자
         excludeExtensions: ['.log']
     },
-    // {
-    //     folder: 'src/utils',
-    //     includeExtensions: ['.ts', '.js'],
-    //     excludeExtensions: ['.test.ts']
-    // }
 ];
 // 상태 저장 실행
 console.log('🔄 Saving project state...');
-(0, stateManager_1.saveProjectState)(projectPath, targetFolders);
+// saveProjectState(projectPath, targetFolders);
+(0, stateManager_1.saveProjectStateWithIntent)(projectPath, targetFolders);
 // 최신 두 상태 파일 찾기
 const states = fs
     .readdirSync(logFolder)
     .filter((f) => f.endsWith('.json')) // JSON 파일만 필터링
     .sort((a, b) => fs.statSync(path.join(logFolder, b)).mtimeMs - fs.statSync(path.join(logFolder, a)).mtimeMs);
+console.log(`Log folder: ${logFolder}`);
+console.log(states);
 if (states.length >= 2) {
     const oldStatePath = path.join(logFolder, states[1]);
     const newStatePath = path.join(logFolder, states[0]);
     console.log(`🔍 Calculating diff between:\n- ${oldStatePath}\n- ${newStatePath}`);
-    (0, diffCalculator_1.calculateDiff)(oldStatePath, newStatePath);
+    // calculateDiff(oldStatePath, newStatePath);
+    (0, diffCalculator_1.calculateDiffWithIntent)(oldStatePath, newStatePath, llm);
 }
 else {
     console.log('⚠️ Not enough states to calculate diff. Please save more states.');
