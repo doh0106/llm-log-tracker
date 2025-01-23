@@ -67,7 +67,7 @@ const states = fs
     .filter((f) => f.endsWith('.json')) // JSON 파일만 필터링
     .sort((a, b) => fs.statSync(path.join(logFolder, b)).mtimeMs - fs.statSync(path.join(logFolder, a)).mtimeMs);
 console.log(`Log folder: ${logFolder}`);
-console.log(states);
+// console.log(states);
 if (states.length >= 2) {
     const oldStatePath = path.join(logFolder, states[1]);
     const newStatePath = path.join(logFolder, states[0]);

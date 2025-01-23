@@ -3,7 +3,7 @@ import * as path from 'path';
 import { saveProjectState, saveProjectStateWithIntent } from './modules/state/stateManager';
 import { calculateDiff, calculateDiffWithIntent } from './modules/diff/diffCalculator';
 // import {LLM} from '.modules/llm/llmInterface';
-import {OpenAIAdapter} from './modules/llm/openaiAdapter';
+import { OpenAIAdapter } from './modules/llm/openaiAdapter';
 import dotenv from 'dotenv';
 dotenv.config(); // .env 파일 로드
 
@@ -35,7 +35,7 @@ const states: string[] = fs
     .sort((a, b) => fs.statSync(path.join(logFolder, b)).mtimeMs - fs.statSync(path.join(logFolder, a)).mtimeMs);
 
 console.log(`Log folder: ${logFolder}`);
-console.log(states);
+// console.log(states);
 
 if (states.length >= 2) {
     const oldStatePath: string = path.join(logFolder, states[1]);

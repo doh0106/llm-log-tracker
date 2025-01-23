@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
 import * as jsdiff from 'diff';
-import {LLM} from '../llm/llmInterface';
-import {analyzeIntent} from '../llm/analyzeIntent';
+import { LLM } from '../llm/llmInterface';
+import { analyzeIntent } from '../llm/analyzeIntent';
 
 // 공통 Diff 계산 로직
 function processFileDiff(
@@ -20,7 +20,7 @@ function processFileDiff(
         const diff = jsdiff.diffLines(oldContent, newContent);
         diff.forEach((part) => {
             const status: string = part.added ? '+' : part.removed ? '-' : ' ';
-            console.log(`${status} ${part.value.trim()}`);
+            // console.log(`${status} ${part.value.trim()}`);
         });
     } else {
         console.log(`✅ No changes in file: ${file}`);

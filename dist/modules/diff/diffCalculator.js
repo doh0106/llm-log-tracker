@@ -53,7 +53,7 @@ function processFileDiff(file, oldContent, newContent) {
         const diff = jsdiff.diffLines(oldContent, newContent);
         diff.forEach((part) => {
             const status = part.added ? '+' : part.removed ? '-' : ' ';
-            console.log(`${status} ${part.value.trim()}`);
+            // console.log(`${status} ${part.value.trim()}`);
         });
     }
     else {
