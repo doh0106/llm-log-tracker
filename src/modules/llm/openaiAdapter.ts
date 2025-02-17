@@ -6,7 +6,7 @@ dotenv.config(); // .env 파일 로드
 
 const apiKey = process.env.OPENAI_API_KEY || '';
 // console.log("api_key", apiKey);
-export class OpenAIAdapter implements LLM{
+export class OpenAIAdapter implements LLM {
     private openai: OpenAI;
 
     constructor(apiKey: string) {
@@ -18,10 +18,11 @@ export class OpenAIAdapter implements LLM{
     async generateResponse(prompt: string): Promise<string> {
         try {
             const response = await this.openai.chat.completions.create({
-                model: 'gpt-4o-mini', // 사용할 모델
+                model: 'gpt-4o', // 사용할 모델
                 messages: [
                     { role: 'user', content: prompt }, // 사용자 입력 메시지
                 ],
+                response_format: { "type": "json_object" }
             });
 
             // 응답에서 텍스트 추출

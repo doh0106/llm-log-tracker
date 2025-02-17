@@ -18,10 +18,11 @@ class OpenAIAdapter {
     async generateResponse(prompt) {
         try {
             const response = await this.openai.chat.completions.create({
-                model: 'gpt-4o-mini', // 사용할 모델
+                model: 'gpt-4o', // 사용할 모델
                 messages: [
                     { role: 'user', content: prompt }, // 사용자 입력 메시지
                 ],
+                response_format: { "type": "json_object" }
             });
             // 응답에서 텍스트 추출
             return response.choices[0].message?.content || 'No response content';
